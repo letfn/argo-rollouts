@@ -7,10 +7,7 @@ main.yaml: clean/main.yaml
 	kustomize build clean >$@
 
 clean/main.yaml: clean/values.yaml
-	-helm repo add external-secrets https://external-secrets.github.io/kubernetes-external-secrets/
-	helm repo update
-	helm template external-secrets external-secrets/kubernetes-external-secrets \
-		--version 8.3.0 --namespace=external-secrets --values=clean/values.yaml --include-crds --kube-version 1.21 >$@
+	curl -sSL https://github.com/argoproj/argo-rollouts/releases/download/v1.0.7/install.yaml >$@
 
 .PHONY: clean
 clean:
